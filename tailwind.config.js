@@ -2,8 +2,21 @@ export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'], // 扫描 src 目录下的文件
   theme: {
     extend: {
+      colors:{
+        'black': '#171717',
+        'my-blue': '#3195b5',
+        'my-pink': '#f6bac6',
+        'my-brown1': '#924d2e',
+        'my-brown2': '#2a1a19',
+        'my-orange': '#e6864a',
+        'my-yellow': '#EFDB00',
+        'my-green': '#17f700',
+      },
+
       fontFamily: {
         impact: ['Impact', 'Haettenschweiler', '"Arial Narrow Bold"', 'sans-serif'],
+        orbitron: ['Orbitron', 'sans-serif'],
+        cyberpunk: ['Cyberpunk', 'Orbitron', 'sans-serif'],
       },
       animation: {
         moveVertical: 'moveVertical 10s infinite',

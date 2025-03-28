@@ -2,26 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-body::-webkit-scrollbar {  
-  display: none; /* 强制隐藏滚动条（适用于Chrome、Edge 和 Safari） */
-}
+ /* 强制隐藏滚动条（适用于Chrome、Edge 和 Safari） */
+/* body::-webkit-scrollbar {  
+  display: none;
+} */
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  /* font-size: 1vw; */
 }
 
-:root {
-  --color-bg1: rgb(108, 0, 162);
-  --color-bg2: rgb(0, 17, 82);
-  --color1: 18, 113, 255;
-  --color2: 221, 74, 255;
-  --color3: 100, 220, 255;
-  --color4: 200, 50, 50;
-  --color5: 180, 180, 50;
-  --color-interactive: 140, 100, 255;
-  --circle-size: 80%;
-  --blending: hard-light;
+@font-face {
+  font-family: 'Cyberpunk';
+  src: url('/fonts/Hacked-KerX.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* 在小屏幕设备上缩小字体 */
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px; /* 在更小的屏幕上进一步缩小字体 */
+  }
 }

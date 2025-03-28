@@ -10,8 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const HomePage = () => {
   useEffect(() => {
-
-   // 风沙动画（无限循环）
+    // 风沙动画（无限循环）
     gsap.to(".wind-sand-particle", {
       x: "-100vw",
       repeat: -1,
@@ -35,12 +34,11 @@ const HomePage = () => {
       yoyo: true,
     });
   }, []);
-  
+
   return (
     <div className="relative min-h-screen overflow-hidden page">
       {/* 基础背景：渐变天空与沙地 */}
       <div className="fixed inset-0 bg-gradient-to-b from-[#B3CDE0] to-[#5C4033] bg-gradient" />
-
 
       {/* 中景：风沙（CSS 粒子） */}
       <div className="fixed inset-0 z-4">
@@ -85,6 +83,21 @@ const HomePage = () => {
           className="text-6xl font-bold mb-4"
         >
           Welcome to My Desert Oasis
+        </motion.h1>
+        <motion.h1
+          initial={{ y: 50, x: -50 }}
+          animate={{
+            y: [50, 0, 0],
+            x: [-50, -50, 0],
+          }}
+          transition={{
+            duration: 2,
+            times: [0, 0.5, 1],
+            ease: "easeInOut",
+          }}
+          className="text-7xl font-bold mb-4"
+        >
+          Angry Sheep
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 50 }}

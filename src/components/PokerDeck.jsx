@@ -23,7 +23,6 @@ const Pokers = () => {
   const imgs = Array.from({ length: 9 }, (_, i) => ({
     src: `/assets/photos/photo (${i}).webp`,
   }));
-  console.log("初始化");
 
   const move = () => {
     let nextImgIndex = imgIndex; // 暂存 imgIndex
@@ -51,13 +50,12 @@ const Pokers = () => {
       };
     });
 
-    console.log("执行一次");
     setCards(newCards); // 更新卡片状态
     setImgIndex(nextImgIndex); // 在 map 外部更新 imgIndex
   };
 
   return (
-      <div className="flex justify-center items-center w-full h-screen">
+      <div className=" flex justify-center items-center w-full h-full">
         <div className="absolute w-[45rem] h-[25rem]">
           {cards.map((card) => (
             <div
@@ -69,7 +67,7 @@ const Pokers = () => {
             </div>
           ))}
           <div
-            className="absolute w-[20rem] h-[26rem] border-[0.15rem] border-white rounded-[1.5rem] bg-white origin-bottom-left overflow-hidden select-none transition duration-300 ease-in-out cursor-pointer z-[1000] hover:bg-[#aaa]"
+            className="absolute w-[20rem] h-[26rem] border-[0.15rem] border-white rounded-[1.5rem] bg-white origin-bottom-left overflow-hidden select-none transition duration-300 ease-in-out cursor-pointer z-10 hover:bg-[#aaa]"
             style={{ transform: transformDatas[4], zIndex: 1000 }}
             onClick={move}
           ></div>
