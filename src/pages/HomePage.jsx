@@ -79,48 +79,6 @@ const HomePage = () => {
   //   return () => unsubscribeScroll();
   // }, [clipPath]);
 
-  // 联系方式
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  // 联系方式数据
-  const contactMethods = [
-    {
-      title: "Email",
-      value: "your.email@example.com",
-      link: "mailto:your.email@example.com",
-    },
-    {
-      title: "Phone",
-      value: "+86 123-4567-8900",
-      link: "tel:+8612345678900",
-    },
-    {
-      title: "GitHub",
-      value: "yourusername",
-      link: "https://github.com/yourusername",
-    },
-    {
-      title: "LinkedIn",
-      value: "yourname",
-      link: "https://linkedin.com/in/yourname",
-    },
-  ];
-
   useEffect(() => {
     // 在组件挂载后注册动画
     const horizontalSection = horizontalRef.current;
@@ -288,38 +246,35 @@ const HomePage = () => {
                 width="100"
                 viewBox="0 0 200 200"
               >
-                {/* 定义圆形路径 */}
-                <path id="circlePath" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" fill="none" />
-                {/* 文字沿着路径排列 */}
-                <text className="font-impact tracking-[0.142rem] z-10 text-white text-3xl">
-                  <motion.textPath
-                    href="#circlePath"
-                    startOffset="0%"
-                    animate={{ startOffset: ["-100%", "0%"] }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    fill="#17f700"
-                  >
-                    JUST A NOBODY · JUST A NOBODY · JUST A NOBODY · JUST A NOBODY ·
-                  </motion.textPath>
-                </text>
-                <circle cx="75" cy="65" r="8" fill="#17f700"></circle>
-                <circle cx="140" cy="80" r="8" fill="#17f700"></circle>
+                {/* 添加图片并居中 */}
+                <motion.image
+                  href="/assets/stuff/nobody.svg"
+                  width="200" // 根据你的SVG实际大小调整
+                  height="200" // 根据你的SVG实际大小调整
+                  x="0" // 居中调整
+                  y="0" // 居中调整
+                  animate={{
+                    rotate: 360,
+                    transformOrigin: "center",
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+
+                <circle cx="37.5%" cy="32.5%" r="4%" fill="#17f700"></circle>
+                <circle cx="70%" cy="40%" r="4%" fill="#17f700"></circle>
                 <path
                   d="M120,80c0,0-4.5-10-17.5-8.5c-8.5,1.5-12.5,6-15.5,12.5c-3,6.5-7,12.5-15.5,12.5s-12.5-5-15.5-12.5c-3-7.5-7-12.5-15.5-12.5c-8.5,0-12.5,5-15.5,12.5s-7,12.5-15.5,12.5c-8.5,0-12.5-6-15.5-12.5s-7-11.5-15.5-12.5c-13-1.5-17.5,8.5-17.5,8.5"
                   stroke="#17f700"
                   stroke-opacity="1"
                   stroke-width="5"
                   fill="none"
-                  className="rotate-12 translate-x-20 translate-y-14 scale-75"
+                  className="rotate-12 translate-x-[4.5rem] translate-y-14 scale-75"
                 ></path>
               </motion.svg>
-            </div>
-            <div className="absolute right-32 top-40">
-              <img src="/assets/photos/key.png" alt="key加载失败" className="w-48 h-48" />
             </div>
             {/* 文本部分 */}
             <motion.div
@@ -327,6 +282,9 @@ const HomePage = () => {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="absolute w-[65rem] h-[32rem] top-0"
             >
+              <div className="absolute right-32 top-40">
+                <img src="/assets/photos/key.png" alt="key加载失败" className="w-48 h-48" />
+              </div>
               <div
                 className="relative inline-block text-[11rem] font-impact leading-none tracking-wide text-my-yellow
                         after:content-['PATIENCE'] after:absolute after:top-[6px] after:left-[6px] after:text-my-yellow after:opacity-40 "
@@ -346,7 +304,7 @@ const HomePage = () => {
           </div>
 
           {/* logo */}
-          <div className="absolute translate-x-[160%] -translate-y-4">
+          <div className="absolute translate-x-52 -translate-y-[20rem]">
             <svg
               width="200" // 原 1920 缩小为 960
               height="160" // 原 1080 缩小为 540
@@ -455,7 +413,7 @@ const HomePage = () => {
         <section ref={techStackRef} className=" relative h-screen w-full flex items-center justify-center">
           <div className="absolute bottom-0 w-full h-full bg-my-green "></div>
           <div className="absolute top-24 left-20 text-white font-cyberpunk text-5xl z-10">My TechStack</div>
-          <motion.div style={{ top: topY }} className="absolute h-full w-full rounded-b-full overflow-hidden z-5">
+          <motion.div style={{ top: topY }} className="absolute h-full w-full rounded-b-[50%] overflow-hidden z-5">
             <TechStackMagnetic></TechStackMagnetic>
           </motion.div>
         </section>
@@ -477,18 +435,18 @@ const HomePage = () => {
               ]}
               title="个人网站"
               dateRange="2025.3-2025.4"
-              projectDescription="本项目是基于Web的在线教育系统，旨在为学生和教师提供高效的学习和教学工具。平台支持课程管理、资源管理、作业提交与批改、实时互动等功能"
-              techStack="前端为Vue3+elementplus+axios，后端使用Springboot框架"
-              responsibilities="负责前端和前后端连接及测试"
+              projectDescription="基于 Vite + React 构建的个人展示网站，注重视觉效果与交互体验"
+              techStack="React, Vite, Tailwind CSS, Framer Motion, GSAP"
+              responsibilities=""
               imageAlt="Project 1 Images"
             />
             <ProjectCard
               projectNumber={2}
               images={[
-                "/assets/photos/project1.png",
-                "/assets/photos/project1-2.png",
-                "/assets/photos/project1-3.png",
-                "/assets/photos/project1-4.png",
+                "/assets/photos/project2-1.png",
+                "/assets/photos/project2-2.png",
+                "/assets/photos/project2-3.png",
+                "/assets/photos/project2-4.png",
               ]}
               title="智慧课程平台"
               dateRange="2024.10-2024.11"
@@ -497,7 +455,7 @@ const HomePage = () => {
               responsibilities="负责前端和前后端连接及测试"
               imageAlt="Project 2 Images"
             />
-            <ProjectCard
+            {/* <ProjectCard
               projectNumber={3}
               images={[
                 "/assets/photos/project1.png",
@@ -511,22 +469,7 @@ const HomePage = () => {
               techStack="前端基于 Vue3 技术栈开发，使用 Pinia 实现全局状态管理，采用 ElementPlus 组件库搭建响应式界面，后端使用Springboot和Flask框架，核心功能利用OpenCV、YOLOv5、PyTorch等技术实现。"
               responsibilities="负责前端开发、后端开发、前后端及测试。"
               imageAlt="Project 3 Images"
-            />
-            <ProjectCard
-              projectNumber={4}
-              images={[
-                "/assets/photos/project1.png",
-                "/assets/photos/project1-2.png",
-                "/assets/photos/project1-3.png",
-                "/assets/photos/project1-4.png",
-              ]}
-              title="外卖订单管理系统"
-              dateRange="2024.07-2024.08"
-              projectDescription="本项目旨在通过集中管理订单信息，提升外卖商家运营效率，从而减少人工操作和订单处理时间"
-              techStack="前端使用Vue3+elementplus+axios，后端使用Springboot框架"
-              responsibilities="负责前端开发、前后端及测试。"
-              imageAlt="Project 4 Images"
-            />
+            /> */}
           </div>
           <div ref={basketballRef} className="absolute left-0 bottom-0">
             <img style={{ width: "6vw" }} src="/assets/stuff/basketball.png" alt="" />
@@ -534,7 +477,7 @@ const HomePage = () => {
         </section>
 
         {/* When I'm Not Coding */}
-        <section ref={cardContainerRef} className="relative w-full h-screen flex items-center justify-center gap-4">
+        <section ref={cardContainerRef} className="relative w-full h-[100vh] flex items-center justify-center gap-4">
           {/* title */}
           <div className="absolute left-20 top-16 text-white font-cyberpunk text-6xl z-10">When I'm Not Coding</div>
           {/* left container */}
@@ -548,7 +491,7 @@ const HomePage = () => {
               width="w-3/4"
               height="h-1/2"
               title="CS2"
-              content="This is the description content for the first card."
+              content="big devil of C+"
               overlayColor="bg-blue-500"
             />
             <Card
@@ -556,7 +499,7 @@ const HomePage = () => {
               width="w-3/4"
               height="h-1/2"
               title="League of legend"
-              content="This is another description for the second card."
+              content="Launcher of TFT(yun ding zhi yi)"
               overlayColor="bg-red-500"
             />
           </motion.div>
@@ -568,8 +511,8 @@ const HomePage = () => {
                 imageUrl="/assets/photos/curry1.jpg"
                 width="w-[90%]"
                 height="h-[90%]"
-                title="League of legend"
-                content="This is another description for the second card."
+                title="Stephen Curry"
+                content="Pure perfection! Every shot he takes is an art—precision, confidence, and endless dedication. Watching Curry shoot inspires me to keep pushing my limits on the court."
                 overlayColor="bg-red-500"
               />
             </div>
@@ -578,16 +521,16 @@ const HomePage = () => {
                 imageUrl="/assets/photos/curry2.jpg"
                 width="w-[90%]"
                 height="h-[40%]"
-                title="League of legend"
-                content="This is another description for the second card."
+                title="Young Curry"
+                content="Greatness starts with passion. Just like Curry, I’ve loved basketball since I was a kid. He’s not just my favorite player—he’s my inspiration on and off the court."
                 overlayColor="bg-red-500"
               />
               <Card
                 imageUrl="/assets/photos/curry3.jpg"
                 width="w-[95%]"
                 height="h-1/2"
-                title="League of legend"
-                content="This is another description for the second card."
+                title="Curry Spirit"
+                content="I’m not the guy who’s afraid of failure. I like to take risks, take the big shot and all that"
                 overlayColor="bg-red-500"
               />
             </div>
@@ -595,21 +538,23 @@ const HomePage = () => {
         </section>
 
         {/* PokerDeck */}
-        <section className=" relative z-0 w-full h-screen">
-          <div
-            className="absolute left-1/2 top-8 -translate-x-1/2 text-opacity-0 font-cyberpunk tracking-widest text-[12rem] h-[20%]"
-            style={{ WebkitTextStroke: "3px #ffffff" }}
-          >
-            RECORD
-          </div>
-          <div className="absolute bottom-24 w-full h-1/2">
-            <PokerDeck />
+        <section className=" relative z-0 w-full h-[60rem] flex justify-center items-center">
+          <div className="relative border z-50">
+            <div
+              className="absolute left-1/2 bottom-14 -translate-x-1/2 text-opacity-0 font-cyberpunk tracking-widest text-[12rem]"
+              style={{ WebkitTextStroke: "3px #ffffff" }}
+            >
+              RECORD
+            </div>
+            <div className="border absolute top-32 w-full h-1/2">
+              <PokerDeck />
+            </div>
           </div>
         </section>
 
-        <section className="border-2 border-my-green relative z-10  flex justify-center items-center">
+        <section className=" relative z-10  flex justify-center h-screen items-center">
           {/* <FaultText /> */}
-          <div className="border absolute top-1/2 -translate-y-full left-1/2 -translate-x-1/2 font-impact text-[10rem] ">
+          <div className=" absolute top-1/2 -translate-y-full left-1/2 -translate-x-1/2 font-impact text-[10rem] ">
             <p className="text-nowrap select-none">CONTACT ME</p>
           </div>
           <div className="border absolute bottom-[40%] w-1/4">
@@ -617,15 +562,12 @@ const HomePage = () => {
             <div className="iconContainer select-none h-16 flex items-center justify-around gap-2">
               <div className="border">
                 <img className="w-8" src="/assets/icons/mail.svg" alt="" />
-                
               </div>
               <div>
                 <img className="w-8" src="/assets/icons/Wechat.svg" alt="" />
-                
               </div>
               <div>
                 <img className="w-8" src="/assets/icons/github.svg" alt="" />
-                
               </div>
             </div>
           </div>

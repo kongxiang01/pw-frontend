@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 const TechStackMagnetic = () => {
   const canvasRef = useRef(null);
   const ballsRef = useRef([]);
-  const starsRef = useRef([]); // 新增：存储固定星星数据
+  const starsRef = useRef([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -11,19 +11,24 @@ const TechStackMagnetic = () => {
     let animationFrameId = null;
     let lastTime = null;
 
+    // 使用 rem 单位的 techStack
     const techStack = [
-      { name: "JS", radius: 80, color: "#FACC15", weight: 0.8 },   // 亮黄
-      { name: "C", radius: 50, color: "#9CA3AF", weight: 0.4 },    // 浅灰
-      { name: "C++", radius: 50, color: "#1D4ED8", weight: 0.4 },  // 深蓝
-      { name: "Java", radius: 53, color: "#15803D", weight: 0.5 }, // 深绿
-      { name: "Python", radius: 55, color: "#1E40AF", weight: 0.6 }, // 蓝
-      { name: "CSS", radius: 80, color: "#2563EB", weight: 0.8 },  // 蓝色
-      { name: "HTML", radius: 80, color: "#D97706", weight: 0.8 }, // 橙黄
-      { name: "React", radius: 80, color: "#0EA5E9", weight: 0.8 }, // 青蓝
-      { name: "Vue", radius: 70, color: "#16A34A", weight: 0.7 },   // 绿色
+      { name: "JS", radius: 5, color: "#FACC15", weight: 0.8 },    // 5rem
+      { name: "C", radius: 3, color: "#9CA3AF", weight: 0.4 },     // 3rem
+      { name: "C++", radius: 3, color: "#1D4ED8", weight: 0.4 },   // 3rem
+      { name: "Java", radius: 3.3, color: "#15803D", weight: 0.5 }, // 3.3rem
+      { name: "Python", radius: 3.5, color: "#1E40AF", weight: 0.6 }, // 3.5rem
+      { name: "CSS", radius: 5, color: "#2563EB", weight: 0.8 },   // 5rem
+      { name: "HTML", radius: 5, color: "#D97706", weight: 0.8 },  // 5rem
+      { name: "React", radius: 5, color: "#0EA5E9", weight: 0.8 }, // 5rem
+      { name: "Vue", radius: 4.5, color: "#16A34A", weight: 0.7 },  // 4.5rem
     ];
 
-    // 初始化固定星星
+    // 获取根字体大小（rem 的基准）
+    const getRemInPixels = () => {
+      return parseFloat(getComputedStyle(document.documentElement).fontSize) || 16; // 默认 16px
+    };
+
     const initStars = () => {
       const { width, height } = canvas.getBoundingClientRect();
       const stars = [];
@@ -32,7 +37,7 @@ const TechStackMagnetic = () => {
           x: Math.random() * width,
           y: Math.random() * height,
           radius: Math.random() * 2,
-          color: Math.random() > 0.5 ? "rgba(255, 255, 0, 0.5)" : "rgba(0, 255, 0, 0.5)", // 黄或绿
+          color: Math.random() > 0.5 ? "rgba(255, 255, 0, 0.5)" : "rgba(0, 255, 0, 0.5)",
         });
       }
       starsRef.current = stars;
@@ -45,6 +50,7 @@ const TechStackMagnetic = () => {
       const centerX = width / 2;
       const centerY = height / 2;
       const circleRadius = Math.min(width, height) * 0.3;
+      const remToPx = getRemInPixels(); // 计算 rem 到 px 的转换
 
       ballsRef.current = techStack.map((tech, index) => {
         const angle = (2 * Math.PI) / techStack.length * index;
@@ -52,6 +58,7 @@ const TechStackMagnetic = () => {
         const oriY = centerY + circleRadius * Math.sin(angle);
         return {
           ...tech,
+          radiusPx: tech.radius * remToPx, // 将 rem 转换为像素
           oriX,
           oriY,
           moveX: oriX,
@@ -62,7 +69,7 @@ const TechStackMagnetic = () => {
         };
       });
 
-      initStars(); // 在 resize 时初始化星星
+      initStars();
     };
 
     const updateBalls = (mouseX, mouseY) => {
@@ -70,7 +77,7 @@ const TechStackMagnetic = () => {
         const dx = ball.oriX - mouseX;
         const dy = ball.oriY - mouseY;
         const distance = Math.sqrt(dx ** 2 + dy ** 2);
-        const mouseRadius = 400; // 使用常量，但可动态调整
+        const mouseRadius = 400; // 可改为动态值
         const effectiveRadius = mouseRadius * ball.weight;
 
         if (distance <= effectiveRadius) {
@@ -90,7 +97,6 @@ const TechStackMagnetic = () => {
       const deltaTime = (timestamp - lastTime) / 1000;
       lastTime = timestamp;
 
-      // 绘制星空背景
       ctx.fillStyle = "#171717";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       starsRef.current.forEach((star) => {
@@ -113,37 +119,35 @@ const TechStackMagnetic = () => {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(ball.oriX, ball.oriY, ball.radius / 5, 0, Math.PI * 2);
+        ctx.arc(ball.oriX, ball.oriY, ball.radiusPx / 5, 0, Math.PI * 2);
         ctx.fillStyle = "#f7f7f7";
         ctx.fill();
 
         ctx.beginPath();
-        ctx.arc(ball.moveX, ball.moveY, ball.radius, 0, Math.PI * 2);
+        ctx.arc(ball.moveX, ball.moveY, ball.radiusPx, 0, Math.PI * 2);
         ctx.fillStyle = ball.color;
         ctx.fill();
 
         // 添加波浪水效果
-        const waterHeight = ball.radius * 2 * ball.weight;
-        const waterY = ball.moveY + ball.radius - waterHeight;
+        const waterHeight = ball.radiusPx * 2 * ball.weight;
+        const waterY = ball.moveY + ball.radiusPx - waterHeight;
         ctx.save();
         ctx.beginPath();
-        ctx.arc(ball.moveX, ball.moveY, ball.radius, 0, Math.PI * 2);
+        ctx.arc(ball.moveX, ball.moveY, ball.radiusPx, 0, Math.PI * 2);
         ctx.clip();
 
-        // 绘制波浪路径
         ctx.beginPath();
-        ctx.moveTo(ball.moveX - ball.radius, ball.moveY + ball.radius); // 左下角
-        ctx.lineTo(ball.moveX - ball.radius, waterY); // 左上角
-        for (let x = -ball.radius; x <= ball.radius; x += 5) {
+        ctx.moveTo(ball.moveX - ball.radiusPx, ball.moveY + ball.radiusPx);
+        ctx.lineTo(ball.moveX - ball.radiusPx, waterY);
+        for (let x = -ball.radiusPx; x <= ball.radiusPx; x += 5) {
           const waveX = ball.moveX + x;
-          const waveY = waterY + Math.sin(x * 0.1 + timestamp * 0.005) * 5; // 波浪高度和速度
+          const waveY = waterY + Math.sin(x * 0.1 + timestamp * 0.005) * 5;
           ctx.lineTo(waveX, waveY);
         }
-        ctx.lineTo(ball.moveX + ball.radius, ball.moveY + ball.radius); // 右下角
+        ctx.lineTo(ball.moveX + ball.radiusPx, ball.moveY + ball.radiusPx);
         ctx.closePath();
 
-        // 填充波浪区域
-        const gradient = ctx.createLinearGradient(ball.moveX, waterY, ball.moveX, ball.moveY + ball.radius);
+        const gradient = ctx.createLinearGradient(ball.moveX, waterY, ball.moveX, ball.moveY + ball.radiusPx);
         gradient.addColorStop(0, "rgba(255, 255, 255, 0.8)");
         gradient.addColorStop(1, "rgba(255, 255, 255, 0.2)");
         ctx.fillStyle = gradient;
@@ -155,12 +159,10 @@ const TechStackMagnetic = () => {
         const dy = ball.oriY - ball.moveY;
         const distance = Math.sqrt(dx ** 2 + dy ** 2);
         if (distance > 5) {
-          ctx.font = `${ball.radius / 2}px Arial`;
+          ctx.font = `${ball.radiusPx / 2}px Arial`;
           ctx.fillStyle = "#ffffff";
           ctx.textAlign = "center";
-          ctx.fillText(ball.name, ball.moveX, ball.moveY + ball.radius + 20);
-          // ctx.font = `${ball.radius / 2 - 6}px Arial`;
-          // ctx.fillText(`${Math.round(ball.weight * 100)}%`, ball.moveX, ball.moveY + ball.radius + 40);
+          ctx.fillText(ball.name, ball.moveX, ball.moveY + ball.radiusPx + 20);
         }
       });
 

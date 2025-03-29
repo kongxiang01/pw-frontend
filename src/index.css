@@ -3,16 +3,16 @@
 @tailwind utilities;
 
  /* 强制隐藏滚动条（适用于Chrome、Edge 和 Safari） */
-/* body::-webkit-scrollbar {  
+body::-webkit-scrollbar {  
   display: none;
-} */
+}
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   /* overflow-x: hidden; */
-  /* font-size: 1vw; */
+  font-size: 1vmax;
 }
 
 @font-face {
@@ -22,14 +22,14 @@ html, body {
   font-style: normal;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   html {
-    font-size: 14px; /* 在小屏幕设备上缩小字体 */
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
   html {
-    font-size: 12px; /* 在更小的屏幕上进一步缩小字体 */
+    font-size: 12px;
   }
-}
+} */

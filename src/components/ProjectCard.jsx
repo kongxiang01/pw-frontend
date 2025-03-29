@@ -127,7 +127,7 @@ const ProjectCard = ({
       </div>
 
       {/* 描述区域 - 占 1/3 高度 */}
-      <div className="relative w-full h-1/3 flex flex-col text-white">
+      <div className="relative mt-8 w-full h-1/3 flex flex-col text-white">
         <div className="title justify-start">
           <span className="ml-8 font-serif text-5xl tracking-wider">{title}</span>
           <span className="ml-24">{dateRange}</span>
