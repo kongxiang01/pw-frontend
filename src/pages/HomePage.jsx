@@ -304,7 +304,7 @@ const HomePage = () => {
           </div>
 
           {/* logo */}
-          <div className="absolute translate-x-52 -translate-y-[20rem]">
+          {/* <div className="absolute translate-x-52 -translate-y-[20rem]">
             <svg
               width="200" // 原 1920 缩小为 960
               height="160" // 原 1080 缩小为 540
@@ -349,7 +349,7 @@ const HomePage = () => {
                 />
               </g>
             </svg>
-          </div>
+          </div> */}
 
           <div className="absolute bottom-8 flex flex-col justify-center items-center">
             <p className="text-my-yellow font-cyberpunk text-xs tracking-widest">
@@ -557,19 +557,27 @@ const HomePage = () => {
           <div className=" absolute top-1/2 -translate-y-full left-1/2 -translate-x-1/2 font-impact text-[10rem] ">
             <p className="text-nowrap select-none">CONTACT ME</p>
           </div>
-          <div className="border absolute bottom-[40%] w-1/4">
-            <hr />
-            <div className="iconContainer select-none h-16 flex items-center justify-around gap-2">
-              <div className="border">
+          <div className=" absolute bottom-[40%]">
+            {/* <hr /> */}
+            <div className="iconContainer select-none h-16 flex flex-col gap-2">
+              <div className=" flex items-center">
                 <img className="w-8" src="/assets/icons/mail.svg" alt="" />
+                <p className="ml-4">101165301@qq.com</p>
               </div>
-              <div>
+              <div className=" flex  items-center">
                 <img className="w-8" src="/assets/icons/Wechat.svg" alt="" />
+                <p className="ml-4">YbTT_TTbY</p>
               </div>
-              <div>
-                <img className="w-8" src="/assets/icons/github.svg" alt="" />
+              <div className=" flex  items-center">
+                <a href="https://github.com/kongxiang01" target="_blank" rel="noopener noreferrer">
+                  <img className="w-8" src="/assets/icons/github.svg" alt="GitHub" />
+                </a>
+                <p className="ml-4">https://github.com/kongxiang01</p>
               </div>
             </div>
+          </div>
+          <div className="absolute font-cyberpunk bottom-[15%] w-36 select-none">
+            <p>click everywhere</p>
           </div>
           <div className="border-2 border-black w-full h-screen">
             <BouncingSquares />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, delay } from "framer-motion";
 
 const Pokers = () => {
   const transformDatas = [
@@ -63,6 +63,21 @@ const Pokers = () => {
     setSelectedCard(null); // 点击背景关闭居中展示
   };
 
+  // 定义signpost的动画变体
+  const signpostVariants = {
+    animate: {
+      rotate: [1, 12, 8, 12, 1, 1, 1], // 从0度到12度再到-12度循环
+      transition: {
+        duration: 2, // 整个动画周期2秒
+        repeat: Infinity, // 无限循环
+        ease: "easeInOut", // 平滑过渡
+      }
+    },
+    initial: {
+      rotate: 2 // 初始状态0度
+    }
+  };
+
   return (
     <div className="flex justify-center items-center w-full h-full" onClick={handleBackgroundClick}>
       <div className="absolute w-[45rem] h-[25rem]">
@@ -80,16 +95,27 @@ const Pokers = () => {
             }}
           >
             <img src={card.src} alt={`poker-${card.id}`} className="relative w-full h-full object-cover" />
+            
           </motion.div>
         ))}
-        <div
+        <motion.div
           className="absolute w-[20rem] h-[26rem] border-[0.15rem] border-white rounded-[1.5rem] bg-white origin-bottom-left overflow-hidden select-none transition duration-300 ease-in-out cursor-pointer z-10 hover:bg-[#aaa]"
           style={{ transform: transformDatas[4], zIndex: 10 }}
           onClick={(e) => {
-            e.stopPropagation(); // 阻止事件冒泡
+            e.stopPropagation();
             move();
           }}
-        ></div>
+        >
+          <motion.img
+            src="/assets/stuff/signpost.png"
+            alt="signpost"
+            className="absolute bottom-0 w-full h-full object-cover"
+            style={{ transformOrigin: "bottom center" }}
+            variants={signpostVariants}
+            initial="initial"
+            whileHover="animate"
+          />
+        </motion.div>
       </div>
 
       {/* 居中展示选中的卡片 */}
