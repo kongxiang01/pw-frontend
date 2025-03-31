@@ -562,7 +562,7 @@ const HomePage = () => {
             <div className="iconContainer select-none h-16 flex flex-col gap-2">
               <div className=" flex items-center">
                 <img className="w-8" src="/assets/icons/mail.svg" alt="" />
-                <p className="ml-4">101165301@qq.com</p>
+                <p className="ml-4">1011265301@qq.com</p>
               </div>
               <div className=" flex  items-center">
                 <img className="w-8" src="/assets/icons/Wechat.svg" alt="" />
